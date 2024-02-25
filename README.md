@@ -58,7 +58,7 @@ To bring up the entire app stack up, we use [docker-compose](https://docs.docker
 
     1. Go to AWS console and search `Amazon Redshift`
     2. Go to `Query Editor`
-    3. Copy and paste all SQL statements in the file, `crete_tables.sql` in this repository
+    3. Copy and paste all SQL statements in the file, `create_tables.sql` in this repository
     4. Run the query
     5. Check if 8 tables are created in your database, `dev`
 
