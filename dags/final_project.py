@@ -80,7 +80,14 @@ def final_project():
     )
 
     run_quality_checks = DataQualityOperator(
-        task_id='Run_data_quality_checks'
+        task_id='Run_data_quality_checks',
+        dq_check = [
+            {'check_num_users': 'SELECT COUNT(*) FROM users', 'expected_result': 104 },
+            {'check_num_songs': 'SELECT COUNT(*) FROM songs', 'expected_result': 24 },
+            {'check_num_artists': 'SELECT COUNT(*) FROM artists', 'expected_result': 24 },
+            {'check_num_time': 'SELECT COUNT(*) FROM time', 'expected_result': 6820 },
+            {'check_num_time': 'SELECT COUNT(*) FROM songplays', 'expected_result': 6820 }
+        ]            
     )
 
     end_operator = DummyOperator(task_id='End_execution')
