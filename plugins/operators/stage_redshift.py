@@ -32,10 +32,11 @@ class StageToRedshiftOperator(BaseOperator):
 
 
     def execute(self, context):
-        self.log.info('StageToRedshiftOperator not implemented yet')
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
+        self.log.info(f'Stage To Redshift for Table Name, {self.table_name} : PostgresHook Object, redshift instantiated')
         aws_hook = AwsHook(self.aws_credential_id)
         credentials = aws_hook.get_credentials()
+        self.log.info(f'Stage To Redshift for Table Name, {self.table_name} : AwsHook, get_credentials - completed')
         
         stage_to_redshift_sql = StageToRedshiftOperator.stage_to_redshift_sql_template.format(
             access_key = credentials.access_key,
@@ -44,10 +45,10 @@ class StageToRedshiftOperator(BaseOperator):
             s3_bucket_key= self.s3_bucket_key,
             json_path_file_bucket_key = self.jsonpath_key
         )
-        self.log.info(f'{self.s3_bucket_key} was copied to {self.table_name} in Redshift.')
-        self.log.info('StageToRedshiftOperator completed.')
-        
+        self.log.info(f'Stage To Redshift for Table Name, {self.table_name} : running COPY SQL statement - started')
         redshift.run(stage_to_redshift_sql)
+        self.log.info(f'Stage To Redshift for Table Name, {self.table_name} : running COPY SQL statement - completed')
+        self.log.info(f'Stage To Redshift for Table Name, {self.table_name} - completed.')
 
 
 
